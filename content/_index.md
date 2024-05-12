@@ -1,8 +1,8 @@
-# Command Line Interface Guidelines
+# コマンドライン<wbr>インターフェース<wbr>ガイドライン {#command-line-interface-guidelines}
 
-An [open-source](https://github.com/cli-guidelines/cli-guidelines) guide to help you write better command-line programs, taking traditional UNIX principles and updating them for the modern day.  
+よりよいコマンドラインプログラムを書くための[オープンソース](https://github.com/cli-guidelines/cli-guidelines)ガイドです。伝統的UNIXの原則を取り入れ、それを現代的にアップデートしています。
 
-## Authors {#authors}
+## 著者一覧 {#authors}
 
 **Aanand Prasad** \
 Engineer at Squarespace, co-creator of Docker Compose. \
@@ -24,213 +24,215 @@ Design by [Mark Hurrell](https://mhurrell.co.uk/). Thanks to Andreas Jansson for
 
 <iframe class="github-button" src="https://ghbtns.com/github-btn.html?user=cli-guidelines&repo=cli-guidelines&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe>
 
-[Join us on Discord](https://discord.gg/EbAW5rUCkE) if you want to discuss the guide or CLI design.
+このガイドやCLIデザインについて議論したいなら、[Discordに参加](https://discord.gg/EbAW5rUCkE)してください。
 
+## 序文 {#foreword}
 
-## Foreword {#foreword}
+1980年代において、パーソナルコンピュータを使って何かをしたい時は、`C:\>`や`~$`という表示に対して何を入力すればいいのかを知っている必要がありました。
+ヘルプは分厚い螺旋綴じのマニュアルでした。
+エラーメッセージは不明瞭なものでした。
+Stack Overflow のようなお助けサイトはありませんでした。
+幸運にも十分なインターネット接続があれば、Usenetから助けを得ることができました。 Usenet はインターネット初期に存在したコミュニティで、あなたと同様にイライラしている人々で溢れていました。
+Usenet によって問題を解決する助けを得るか、少なくとも多少のモラルサポートと仲間意識を得ることができました。
 
-In the 1980s, if you wanted a personal computer to do something for you, you needed to know what to type when confronted with `C:\>` or `~$`.
-Help came in the form of thick, spiral-bound manuals.
-Error messages were opaque.
-There was no Stack Overflow to save you.
-But if you were lucky enough to have internet access, you could get help from Usenet—an early internet community filled with other people who were just as frustrated as you were.
-They could either help you solve your problem, or at least provide some moral support and camaraderie.
+それから40年後、コンピュータはより多くの人の手に行き渡りましたが、多くの場合低レベルエンドユーザーコントロールが犠牲になりました。
+多くのデバイスではコマンドラインアクセスは全く存在せず、それはコマンドラインアクセスが企業の興味分野である Walled garden (訳注: ユーザを自社サービスに囲い込もうとすること) とアプリストアに反することが理由のひとつにありました。
 
-Forty years later, computers have become so much more accessible to everyone, often at the expense of low-level end user control.
-On many devices, there is no command-line access at all, in part because it goes against the corporate interests of walled gardens and app stores.
+今では多くの人がコマンドラインが何かを知らないし、なぜわざわざそんなものを使いたがるかも知りません。
+コンピューティングのパイオニアである Alan Kay は[2017年のインタビュー](https://www.fastcompany.com/40435064/what-alan-kay-thinks-about-the-iphone-and-technology-now)でこのように言っています。
+「人々はコンピューティングとは何かを理解していないので、それがiPhoneの中にあると思っており、その幻想は『Guitar Hero』が本物のギターだと思うのと同じくらいよくない幻想です」
 
-Most people today don’t know what the command line is, much less why they would want to bother with it.
-As computing pioneer Alan Kay said in [a 2017 interview](https://www.fastcompany.com/40435064/what-alan-kay-thinks-about-the-iphone-and-technology-now), “Because people don't understand what computing is about, they think they have it in the iPhone, and that illusion is as bad as the illusion that 'Guitar Hero' is the same as a real guitar.”
+Kayの言う「本物のギター」は正確にはCLIのことではありません。
+彼はテキストファイルにソフトウェアを記述することを超えた、CLIの力を受けたコンピュータプログラミングについて話しています。
+Kayの弟子たちの間には、我々が何十年も囚われているテキストベースの局所最適を抜け出すべきだという信念があります。
 
-Kay’s “real guitar” isn’t the CLI—not exactly.
-He was talking about ways of programming computers that offer the power of the CLI and that transcend writing software in text files.
-There is a belief among Kay’s disciples that we need to break out of a text-based local maximum that we’ve been living in for decades.
+コンピュータプログラミングが今とは非常に異なる方法で行われる未来を想像するのはとても楽しいことです。
+今日でもスプレッドシートは圧倒的人気プログラミング言語であり、才能あるプログラマの強い需要の一部を置き換えるためのノーコードムーブメントが急速に進行中です。
 
-It’s exciting to imagine a future where we program computers very differently.
-Even today, spreadsheets are by far the most popular programming language, and the no-code movement is taking off quickly as it attempts to replace some of the intense demand for talented programmers.
+数十年前からのガタついた制約と不可解な癖にもかかわらず、コマンドラインはいまだコンピュータの最も**多用途**な一角を占めています。
+コマンドラインはカーテンを開け、本当は何が起きているかを知り、GUIには到達できない洗練度と深さでマシンとクリエイティブに交流することを可能にします。
+コマンドラインは多くのラップトップで利用可能であり、多くの人はそこからコマンドラインについて学ぶことができます。
+コマンドラインはインタラクティブに利用することもできるし、自動化もできます。
+そして、システムの他の部分と比較して頻繁に変化しません。
+その安定性には創造的価値があります。
 
-Yet with its creaky, decades-old constraints and inexplicable quirks, the command line is still the most _versatile_ corner of the computer.
-It lets you pull back the curtain, see what’s really going on, and creatively interact with the machine at a level of sophistication and depth that GUIs cannot afford.
-It’s available on almost any laptop, for anyone who wants to learn it.
-It can be used interactively, or it can be automated.
-And, it doesn’t change as fast as other parts of the system.
-There is creative value in its stability.
+したがって、それがまだ我々の手の中にあるうちに、利用率とアクセシビリティの最大化をすべきです。
 
-So, while we still have it, we should try to maximize its utility and accessibility.
+コンピュータプログラミングの方法は、その初期の頃と比較して非常に多くのことが変化しています。
+過去においてコマンドラインは**マシンファースト**でした。それはスクリプティングプラットフォーム上のREPLに毛が生えた程度のものでした。
+しかし汎用インタプリタ言語の繁栄に伴って、シェルスクリプトの役割は小さくなりました。
+今日のコマンドラインは**ヒューマンファースト**です。つまり、あらゆるツール、システム、プラットフォームへのアクセスを提供するテキストベースUIとなりました。
+過去にはエディタはターミナルの中にありました。今ではターミナルがエディタのいち機能となっています。
+`git`のようなマルチツールコマンドも爆発的に増加しています。
+コマンド内コマンドや高レベルコマンドは、原始的な関数というよりワークフロー全体として振る舞っています。
 
-A lot has changed about how we program computers since those early days.
-The command line of the past was _machine-first_: little more than a REPL on top of a scripting platform.
-But as general-purpose interpreted languages have flourished, the role of the shell script has shrunk.
-Today's command line is _human-first_: a text-based UI that affords access to all kinds of tools, systems and platforms.
-In the past, the editor was inside the terminal—today, the terminal is just as often a feature of the editor.
-And there’s been a proliferation of `git`-like multi-tool commands.
-Commands within commands, and high-level commands that perform entire workflows rather than atomic functions.
+伝統的UNIX哲学をインスパイアし、CLI環境をより楽しくアクセシブルなものにするよう奨励するという関心によって、我々はコマンドラインプログラムを構築する際のベストプラクティスとデザイン原則を再訪することにしました。
 
-Inspired by traditional UNIX philosophy, driven by an interest in encouraging a more delightful and accessible CLI environment, and guided by our experiences as programmers, we decided it was time to revisit the best practices and design principles for building command-line programs.
+コマンドライン万歳！
 
-Long live the command line!
+## イントロダクション {#introduction}
 
-## Introduction {#introduction}
+このドキュメントは高レベルのデザイン哲学と、堅固なガイドラインの両方をカバーします。
+実践者のための哲学とは哲学しすぎないことであるため、ガイドラインの比重が大きくなっています。
+我々は例とともに学ぶことの力を信じているため、例をたくさん入れました。
 
-This document covers both high-level design philosophy, and concrete guidelines.
-It’s heavier on the guidelines because our philosophy as practitioners is not to philosophize too much.
-We believe in learning by example, so we’ve provided plenty of those.
+このガイドは emacs や vim のようなフルスクリーンターミナルプログラムをカバーしません。
+フルスクリーンプログラムはニッチなプロジェクトであり、それをデザインできる立場にある人は限られています。
 
-This guide doesn’t cover full-screen terminal programs like emacs and vim.
-Full-screen programs are niche projects—very few of us will ever be in the position to design one.
+このガイドはプログラミング言語やツールについても基本的に触れません。
 
-This guide is also agnostic about programming languages and tooling in general.
+このガイドはどのような人のためのものでしょうか?
+- CLIプログラムを作っていて、そのUIデザインについての哲学と堅固なベストプラクティスを探しているなら、このガイドはあなたのためのものです。
+- あなたがプロの「CLI UI デザイナー」なら……素晴らしいことです。ぜひあなたから学ばせてください。
+- 40年のCLIデザインの慣習に反する明らかな誤りを避けたいのなら、このガイドはあなたのためのものです。
+- 優れたデザインと役に立つヘルプで人々を喜ばせたいのなら、このガイドはまさにあなたのためのものです。
+- GUIプログラムを作っているなら、あなたはこのガイドの対象外です。しかし読んでみればGUIのアンチパターンを学べるかもしれません。
+- あなたがMinecraftの没入型フルスクリーンCLIポートをデザインしているなら、あなたはこのガイドの対象外です (しかし完成を楽しみにしています!)
 
-Who is this guide for?
-- If you are creating a CLI program and you are looking for principles and concrete best practices for its UI design, this guide is for you.
-- If you are a professional “CLI UI designer,” that’s amazing—we’d love to learn from you.
-- If you’d like to avoid obvious missteps of the variety that go against 40 years of CLI design conventions, this guide is for you.
-- If you want to delight people with your program’s good design and helpful help, this guide is definitely for you.
-- If you are creating a GUI program, this guide is not for you—though you may learn some GUI anti-patterns if you decide to read it anyway.
-- If you are designing an immersive, full-screen CLI port of Minecraft, this guide isn’t for you.
-  (But we can’t wait to see it!)
+## 哲学 {#philosophy}
 
-## Philosophy {#philosophy}
+良いCLIデザインの基礎的原則について考えます。
 
-These are what we consider to be the fundamental principles of good CLI design.
+### ヒューマンファーストデザイン {#human-first-design}
 
-### Human-first design {#human-first-design}
+伝統的に、UNIXコマンドは他のプログラムで最も利用されることを仮定して書かれています。
+これらはグラフィカルアプリケーションよりもプログラミング言語の関数に近いものです。
 
-Traditionally, UNIX commands were written under the assumption they were going to be used primarily by other programs.
-They had more in common with functions in a programming language than with graphical applications.
+今日、多くのCLIプログラムは人間に最も多く (または人間のみが) 利用されるのにもかかわらず、その多くのインタラクションデザインはそのような過去を引きずっています。
+今こそ過去を捨て去る時です。コマンドラインが第一に人間に使われるならば、人間第一にデザインするべきです。
 
-Today, even though many CLI programs are used primarily (or even exclusively) by humans, a lot of their interaction design still carries the baggage of the past.
-It’s time to shed some of this baggage: if a command is going to be used primarily by humans, it should be designed for humans first.
+### 組み合わせ可能でシンプルなパーツ {#simple-parts-that-work-together}
 
-### Simple parts that work&nbsp;together {#simple-parts-that-work-together}
+[オリジナルのUNIX哲学](https://ja.wikipedia.org/wiki/UNIX%E5%93%B2%E5%AD%A6)の核となる教義は小さく、シンプルでクリーンなインターフェースを持つプログラムは組み合わせてより大きなシステムにできるというものです。
+プログラムに機能をたくさん付けるのではなく、必要に応じて再構成できるように十分モジュラーにします。
 
-A core tenet of [the original UNIX philosophy](https://en.wikipedia.org/wiki/Unix_philosophy) is the idea that small, simple programs with clean interfaces can be combined to build larger systems.
-Rather than stuff more and more features into those programs, you make programs that are modular enough to be recombined as needed.
+かつて、パイプとシェルスクリプトはプログラムをまとめるプロセスにおいて重要な役割を持っていました。
+その役割は汎用インタプリタ言語の成長に伴い減少したかもしれませんが、確かになくなってはいません。
+つまり、より大規模なオートメーション、CI/CD、オーケストレーションと構成管理が繁栄しているのです。
+プログラムを構成可能にすることはいまだ重要なままです。
 
-In the old days, pipes and shell scripts played a crucial role in the process of composing programs together.
-Their role might have diminished with the rise of general-purpose interpreted languages, but they certainly haven’t gone away.
-What’s more, large-scale automation—in the form of CI/CD, orchestration and configuration management—has flourished.
-Making programs composable is just as important as ever.
+幸いにも、UNIX環境の長年続く慣習はそのような目的でデザインされており、今でも我々の助けになります。
+標準入力/出力/エラー、シグナル、終了コードやその他メカニズムによって異なるプログラムをいい感じにガッチャンコできます。
+プレーン行ベーステキストはコマンド間を接続しやすくします。
+より最近の発明であるJSONは、必要なときに構造化を支援し、コマンドラインツールとウェブをより簡単に統合できるようにします。
 
-Fortunately, the long-established conventions of the UNIX environment, designed for this exact purpose, still help us today.
-Standard in/out/err, signals, exit codes and other mechanisms ensure that different programs click together nicely.
-Plain, line-based text is easy to pipe between commands.
-JSON, a much more recent invention, affords us more structure when we need it, and lets us more easily integrate command-line tools with the web.
+あなたが作成しているソフトウェアが何であれ、人々があなたの想像を超えた使い方をするのは間違いありません。
+あなたのソフトウェアはより大きなシステムの一部と**なります**。あなたができることはより良い部品として振る舞うようにすることだけです。
 
-Whatever software you’re building, you can be absolutely certain that people will use it in ways you didn’t anticipate.
-Your software _will_ become a part in a larger system—your only choice is over whether it will be a well-behaved part.
+最も重要なこととして、構成可能にデザインすることはヒューマンファーストにデザインすることの反対にはありません。
+このドキュメントのアドバイスはその両方を実現します。
 
-Most importantly, designing for composability does not need to be at odds with designing for humans first.
-Much of the advice in this document is about how to achieve both.
+### プログラム間で一貫性を保つ {#consistency-across-programs}
 
-### Consistency across programs {#consistency-across-programs}
+ターミナルの慣習はあなたの指に刻まれています。
+コマンドラインの構文、フラグ、環境変数その他について学ぶコストを支払う必要はありましたが、長期的な効率の観点でペイします……プログラムが一貫している限り。
 
-The terminal’s conventions are hardwired into our fingers.
-We had to pay an upfront cost by learning about command line syntax, flags, environment variables and so on, but it pays off in long-term efficiency… as long as programs are consistent.
+可能ならば、CLIは既に存在するパターンに追従すべきです。
+それこそがCLIを直感的かつ予測可能にします。効率的な利用を可能にもします。
 
-Where possible, a CLI should follow patterns that already exist.
-That’s what makes CLIs intuitive and guessable; that’s what makes users efficient.
-
-That being said, sometimes consistency conflicts with ease of use.
-For example, many long-established UNIX commands don't output much information by default, which can cause confusion or worry for people less familiar with the command line.
+とは言うものの、使用法の簡単さと一貫性が衝突することはあります。
+たとえば、多くの古くからあるUNIXコマンドはデフォルトでは多くの情報を出力しませんが、これはコマンドラインに親しみのない人にとって混乱や不安を招きます。
 
 When following convention would compromise a program’s usability, it might be time to break with it—but such a decision should be made with care.
 
-### Saying (just) enough {#saying-just-enough}
+慣習に従うことがプログラムのユーザビリティを損なう場合、その慣習を打ち破るときかもしれません。ただしそのような決定をするときは慎重になってください。
 
-The terminal is a world of pure information.
-You could make an argument that information is the interface—and that, just like with any interface, there’s often too much or too little of it.
+### 必要なこと (だけ) 言う {#saying-just-enough}
 
-A command is saying too little when it hangs for several minutes and the user starts to wonder if it’s broken.
-A command is saying too much when it dumps pages and pages of debugging output, drowning what’s truly important in an ocean of loose detritus.
-The end result is the same: a lack of clarity, leaving the user confused and irritated.
+ターミナルは純粋な情報の世界です。
+情報はインターフェースであるということができます。そして、他のインターフェースと同様に、それはしばしば過剰になったり過少になったりします。
 
-It can be very difficult to get this balance right, but it’s absolutely crucial if software is to empower and serve its users.
+コマンドが数分間ハングして壊れているのでないかとユーザが心配し始めるなら情報が過少です。
+何ページにもわたってデバッグ出力が行われ、そのような情報の海で何が本当に必要な情報かわからなくなるなら情報が過剰です。
+どちらにしても最終的な結果は同じです。つまり、明確性が失われ、ユーザを混乱させたり苛つかせたりします。
 
-### Ease of discovery {#ease-of-discovery}
+このバランスを正しく保つのは難しいですが、ソフトウェアがユーザに仕え、エンパワーするためには重要なことです。
 
-When it comes to making functionality discoverable, GUIs have the upper hand.
-Everything you can do is laid out in front of you on the screen, so you can find what you need without having to learn anything, and perhaps even discover things you didn’t know were possible.
+### 発見の容易性 {#ease-of-discovery}
 
-It is assumed that command-line interfaces are the opposite of this—that you have to remember how to do everything.
-The original [Macintosh Human Interface Guidelines](https://archive.org/details/applehumaninterf00appl), published in 1987, recommend “See-and-point (instead of remember-and-type),” as if you could only choose one or the other.
+機能の見つけやすさという点ではGUIの方に軍配が上がります。
+GUIアプリケーションの機能はスクリーンの上にあるため、事前に学ぶ必要なく機能を探すことが可能であり、知らない機能を見つけることすら可能です。
 
-These things needn’t be mutually exclusive.
-The efficiency of using the command-line comes from remembering commands, but there’s no reason the commands can’t help you learn and remember.
+コマンドラインインターフェースはその対極にあると思われます。つまり、すべてを覚えておく必要があるということです。
+1987年に公開されたオリジナルの[マッキントッシュ ヒューマンインターフェースガイドライン]((https://archive.org/details/applehumaninterf00appl))では「見て、指す (覚えてタイプするのではなく)」ことが推奨されています。
+まるでそれらのどちらかしか選択できないかのような書かれ方です。
 
-Discoverable CLIs have comprehensive help texts, provide lots of examples, suggest what command to run next, suggest what to do when there is an error.
-There are lots of ideas that can be stolen from GUIs to make CLIs easier to learn and use, even for power users.
+それらは互いに排他的である必要はありません。
+コマンドラインの効率性はコマンドを覚えることから来ていますが、コマンドが学び覚える手助けをできない理由はありません。
+
+発見可能なCLIは包括的なヘルプテキストを持ち、多くの例を提供し、次に何をすべきかを提案し、エラーの際には何をすべきかを提案します。
+GUIからは、CLIを学習と使用が簡単で、パワーユーザにも役に立つものにするために多くのアイデアを盗むことができます。
 
 _Citation: The Design of Everyday Things (Don Norman), Macintosh Human Interface Guidelines_
 
-### Conversation as the&nbsp;norm {#conversation-as-the-norm}
+### 当たり前のように会話する {#conversation-as-the-norm}
 
-GUI design, particularly in its early days, made heavy use of _metaphor_: desktops, files, folders, recycle bins.
-It made a lot of sense, because computers were still trying to bootstrap themselves into legitimacy.
-The ease of implementation of metaphors was one of the huge advantages GUIs wielded over CLIs.
-Ironically, though, the CLI has embodied an accidental metaphor all along: it’s a conversation.
+GUIデザイン、特にその初期のものは、**メタファー**を多用していました。デスクトップ、ファイル、フォルダ、ゴミ箱などがその例です。
+この時はまだコンピュータは自分自身の正当性を示さなければならなかったので、これは妥当なことでした。
+メタファーの実装しやすさはCLIに対するGUIの大きな利点です。
+しかし皮肉にも、CLIは最初から偶然にメタファーを含んでいました。つまり、会話のメタファーです。
 
-Beyond the most utterly simple commands, running a program usually involves more than one invocation.
-Usually, this is because it’s hard to get it right the first time: the user types a command, gets an error, changes the command, gets a different error, and so on, until it works.
-This mode of learning through repeated failure is like a conversation the user is having with the program.
+最も単純なコマンドでも、プログラムの実行には通常は複数回の実行が必要になります。
+これは、最初から正しく物事を行うのが通常は難しいからです。ユーザはコマンドを入力し、エラーを受け取り、コマンドを変更し、また違うエラーを受け取り、うまくいくまでこれを繰り返します。
+失敗の繰り返しから学ぶこのモードは、ユーザとプログラムの会話のようなものです。
 
-Trial-and-error isn’t the only type of conversational interaction, though.
-There are others:
+トライアル・アンド・エラーは会話式インタラクションの唯一の類型ではありません。
+他にはこのようなものがあります。
 
-- Running one command to set up a tool and then learning what commands to run to actually start using it.
-- Running several commands to set up an operation, and then a final command to run it (e.g. multiple `git add`s, followed by a `git commit`).
-- Exploring a system—for example, doing a lot of `cd` and `ls` to get a sense of a directory structure, or `git log` and `git show` to explore the history of a file.
-- Doing a dry-run of a complex operation before running it for real.
+- ツールをセットアップし、コマンドを使い始めるためのコマンドを学ぶまでをひとつのコマンドで行う。
+- オペレーションをセットアップするために複数のコマンドを実行し、最後のコマンドでオペレーションを実行する (例: 複数の`git add`の後に`git commit`)。
+- システムを探索する。たとえば、`cd`や`ls`でディレクトリ構造について知る、もしくは`git log`と`git show`でファイルの履歴を探索する。
+- 複雑なオペレーションを実際に実行する前にドライランする。
 
-Acknowledging the conversational nature of command-line interaction means you can bring relevant techniques to bear on its design.
-You can suggest possible corrections when user input is invalid, you can make the intermediate state clear when the user is going through a multi-step process, you can confirm for them that everything looks good before they do something scary.
+コマンドラインインタラクションの会話的性質を認識することで、そのデザインに関する技法が得られます。
+入力が不正の時は可能な修正を提案できるし、マルチステップのプロセスを行っている時は中間状態を明確にしたり、何か恐ろしいことをする前にはすべてが正しいことを確認することができます。
 
-The user is conversing with your software, whether you intended it or not.
-At worst, it’s a hostile conversation which makes them feel stupid and resentful.
-At best, it’s a pleasant exchange that speeds them on their way with newfound knowledge and a feeling of achievement.
+ユーザーはあなたが意図する、しないにかかわらずあなたの作ったソフトウェアと対話します。
+最悪の場合、それは敵対的な会話となり、バカにされたように感じたり憤慨したりします。
+最良の場合、新たに得た知識と達成感によって物事を加速させる楽しい交流になります。
 
 _Further reading: [The Anti-Mac User Interface (Don Gentner and Jakob Nielsen)](https://www.nngroup.com/articles/anti-mac-interface/)_
 
-### Robustness {#robustness-principle}
+### 堅牢性 {#robustness-principle}
 
-Robustness is both an objective and a subjective property.
-Software should _be_ robust, of course: unexpected input should be handled gracefully, operations should be idempotent where possible, and so on.
-But it should also _feel_ robust.
+堅牢性は主観的性質であり、客観的性質でもあります。
+もちろん、ソフトウェアは堅牢で**ある**必要があります。予期しない入力は適切に処理されるべきである、オペレーションは可能なら冪等であるべきである、などがそれに当たります。
+それに加えて、ソフトウェアは堅牢であるように**感じられる**必要があります。
 
-You want your software to feel like it isn’t going to fall apart.
-You want it to feel immediate and responsive, as if it were a big mechanical machine, not a flimsy plastic “soft switch.”
+堅牢であるように感じられることとは、ソフトウェアが壊れないことではありません。
+ヤワなプラスチックの「ソフトスイッチ」のようではなく、大きな機械仕掛けのように、素早く、敏感に反応するように感じさせるということです。
 
-Subjective robustness requires attention to detail and thinking hard about what can go wrong.
-It’s lots of little things: keeping the user informed about what’s happening, explaining what common errors mean, not printing scary-looking stack traces.
+客観的堅牢性のためには、細部に注意をはらい、何がそれを損なうかをよく考える必要があります。
+ユーザが何が起きているかを知っている状態を維持することや、一般的なエラーに対しては恐ろしいスタックトレースではなくその意味の説明を行うことなど、細かい注意点がたくさんあります。
 
-As a general rule, robustness can also come from keeping it simple.
-Lots of special cases and complex code tend to make a program fragile.
+一般的なルールとして、堅牢性は物事を単純にすることにより生まれます。
+特殊ケースが多く複雑なコードは不安定な印象を与えます。
 
-### Empathy {#empathy}
+### エンパシー {#empathy}
 
-Command-line tools are a programmer’s creative toolkit, so they should be enjoyable to use.
-This doesn’t mean turning them into a video game, or using lots of emoji (though there’s nothing inherently wrong with emoji 😉).
-It means giving the user the feeling that you are on their side, that you want them to succeed, that you have thought carefully about their problems and how to solve them.
+コマンドラインツールはプログラマのクリエイティブなツールキットであるため、使うのが楽しいものでなければなりません。
+これはツールをビデオゲームのようにしたり、絵文字を多用したりするということではありません (絵文字を使うこと自体には本質的な問題はありません😉)。
+ユーザにこちらが仲間であり、ユーザの成功を望んでおり、ユーザの問題とその解決法についてよく考えていると感じてもらうことです。
 
-There’s no list of actions you can take that will ensure they feel this way, although we hope that following our advice will take you some of the way there.
-Delighting the user means _exceeding their expectations_ at every turn, and that starts with empathy.
+彼らにそう思ってもらうためにできることのリストは存在しませんが、我々のアドバイスに従うことで少しでもその方向へ進むことを願っています。
+ユーザを喜ばせることは常に**期待を超え続ける**ことであり、それはエンパシーから始まります。
 
-### Chaos {#chaos}
+### カオス {#chaos}
 
-The world of the terminal is a mess.
-Inconsistencies are everywhere, slowing us down and making us second-guess ourselves.
+ターミナルの世界はめちゃくちゃです。
+非一貫性はいたるところに存在し、我々の足を引っ張り、自分自身を後から批判します。
 
-Yet it’s undeniable that this chaos has been a source of power.
-The terminal, like the UNIX-descended computing environment in general, places very few constraints on what you can build.
-In that space, all manner of invention has bloomed.
+しかしこのカオスが力の源であったことは否定できません。
+ターミナル環境、一般にはUNIX系コンピューティング環境のような環境は、その上に構築するものに関しての制約が非常に少ないです。
+この空間では、あらゆる発明方法が花開きました。
 
-It’s ironic that this document implores you to follow existing patterns, right alongside advice that contradicts decades of command-line tradition.
-We’re just as guilty of breaking the rules as anyone.
+皮肉なことに、このドキュメントは既存のパターンに従うよう要請しており、それと並行して数十年に渡るコマンドラインの伝統に反するようアドバイスもしています。
+我々もルールを破る罪を犯しているわけです。
 
-The time might come when you, too, have to break the rules.
-Do so with intention and clarity of purpose.
+あなたにもルールを破らなければならない時が来るかもしれません。
+その時は意図と目的を明確にするようにしてください。
 
-> “Abandon a standard when it is demonstrably harmful to productivity or user satisfaction.” — Jef Raskin, [The Humane Interface](https://en.wikipedia.org/wiki/The_Humane_Interface)
+> “プロダクティビティやユーザの満足度に明らかに害が及ぶなら、標準を放棄すべきである” — Jef Raskin, [The Humane Interface](https://en.wikipedia.org/wiki/The_Humane_Interface)
 
 ## Guidelines {#guidelines}
 
