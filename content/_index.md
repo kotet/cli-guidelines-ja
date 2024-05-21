@@ -29,7 +29,7 @@ Design by [Mark Hurrell](https://mhurrell.co.uk/). Thanks to Andreas Jansson for
 ## 翻訳について {#translation}
 
 このページは [Command Line Interface Guidelines](https://clig.dev/) の日本語訳です。
-オリジナルの著作権は [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) であり、この翻訳もライセンスを継承します。
+オリジナルのライセンスは [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) であり、この翻訳もライセンスを継承します。
 翻訳の修正や改善にご協力いただける方は、[GitHubリポジトリ](https://github.com/kotet/cli-guidelines-ja)にプルリクエストを送ってください。
 
 <iframe class="github-button" src="https://ghbtns.com/github-btn.html?user=kotet&repo=cli-guidelines-ja&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe>

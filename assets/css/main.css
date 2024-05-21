@@ -118,6 +118,8 @@ body {
       grid-row: 1 / 2;
       box-sizing: border-box;
       margin-top: 100vh;
+      font-family: "BIZ UDPMincho", serif;
+      font-weight: 700;
    }
    #TableOfContents > ul {
       position: -webkit-sticky;
@@ -482,7 +484,7 @@ h2+p, h3+p {
 }
 
 code {
-   font-family: 'CLIG-PRE';
+   font-family: 'Noto Sans Mono', monospace;
    padding: 0 0.25em;
 }
 
@@ -505,11 +507,11 @@ pre code {
    overflow-x: auto;
    padding: 3em 3rem;
    border-radius: 1px 1px 5px 5px;
-   font-family: 'BIZ UDPGothic', sans-serif;
+   font-family: 'Noto Sans Mono', monospace;
 }
 
 pre code strong {
-   font-family: 'BIZ UDPGothic', sans-serif;
+   font-family: 'Noto Sans Mono', monospace;
    font-weight: 700;
 }
 
@@ -548,14 +550,14 @@ pre code strong {
 
 body {
    color: rgba(0,0,0,1);
-   background: rgba(255,255,255,1);
+   background: rgba(238, 238, 238, 1);
 }
 #TableOfContents {
-   background: rgba(255,255,255,0.6);
+   background: rgba(238, 238, 238, 0.6);
 }
 h2:after, h3:after {
-   background: rgba(255,255,255,1);
-   box-shadow: 0 0 25px rgba(255,255,255,1);
+   background: rgba(238, 238, 238, 1);
+   box-shadow: 0 0 25px rgba(238, 238, 238, 1);
 }
 main ul li:before {
    background: rgba(0,0,0,1);
@@ -594,11 +596,19 @@ pre code {
    pre code {
       background: rgba(126,126,126, 0.4);
    }
+   strong {
+      color: rgba(255,255,255,1);
+
+   }
 }
 
 a:focus, button:focus {
-   color: rgb(255,255,255);
+   color: rgba(238, 238, 238, 1);
    background: rgb(31, 76, 255);
    outline: none;
    text-decoration: underline;
+}
+
+rt {
+   font-size: .7em;
 }
