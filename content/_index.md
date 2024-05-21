@@ -903,10 +903,6 @@ _参考文献: [User experience, CLIs, and breaking the world, by John Starich](
 
 ### 堅牢性 {#robustness-guidelines}
 
-**Validate user input.**
-Everywhere your program accepts data from the user, it will eventually be given bad data.
-Check early and bail out before anything bad happens, and [make the errors understandable](#errors).
-
 **ユーザの入力をバリデートしてください。**
 ユーザからデータを受け取る時は、常に悪いデータを受け取る可能性があります。
 早期にチェックしなにか悪いことが起きる前に排除し、[わかりやすいエラーにしてください](#errors) 。
