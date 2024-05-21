@@ -1,0 +1,59 @@
+# This is a basic workflow to help you get started with Actions
+
+name: build-and-deploy
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the main branch
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: ["*"]
+
+permissions:
+  id-token: write
+  pages: write
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Hugo setup
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: "0.119.0"
+          extended: true
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          filter: blob:none
+      - name: hugo build (test)
+        run: |
+          hugo --minify --buildFuture --templateMetrics --templateMetricsHints
+  deploy:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - name: Hugo setup
+        uses: peaceiris/actions-hugo@v2.4.13
+        with:
+          hugo-version: "0.119.0"
+          extended: true
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          filter: blob:none
+      - name: hugo build (deploy)
+        run: |
+          hugo --minify --buildFuture
+        env:
+          HUGO_ENV: production
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+          if-no-files-found: error
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
