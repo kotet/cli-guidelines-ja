@@ -141,8 +141,6 @@ Kayの弟子たちの間には、我々が何十年も囚われているテキ�
 とは言うものの、使用法の簡単さと一貫性が衝突することはあります。
 たとえば、多くの古くからあるUNIXコマンドはデフォルトでは多くの情報を出力しませんが、これはコマンドラインに親しみのない人にとって混乱や不安を招きます。
 
-When following convention would compromise a program’s usability, it might be time to break with it—but such a decision should be made with care.
-
 慣習に従うことがプログラムのユーザビリティを損なう場合、その慣習を打ち破るときかもしれません。ただしそのような決定をするときは慎重になってください。
 
 ### 必要なこと (だけ) を言う {#saying-just-enough}
