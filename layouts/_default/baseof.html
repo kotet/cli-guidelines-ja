@@ -3,10 +3,10 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-        <link rel="manifest" href="/site.webmanifest">
+        <link rel="apple-touch-icon" sizes="180x180" href="{{ .Site.BaseURL }}/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ .Site.BaseURL }}/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ .Site.BaseURL }}/favicon-16x16.png">
+        <link rel="manifest" href="{{ .Site.BaseURL }}/site.webmanifest">
 
         <title>Command Line Interface Guidelines (日本語訳)</title>
         <meta name="twitter:card" content="summary_large_image">
@@ -17,8 +17,8 @@
         <meta name="twitter:description" content="An open-source guide to help you write better command-line programs, taking traditional UNIX principles and updating them for the modern day." />
         <meta property="og:description"  content="An open-source guide to help you write better command-line programs, taking traditional UNIX principles and updating them for the modern day." />
 
-        <meta name="twitter:image" content="https://kotet.jp/cli-guidlines-ja/CLIG-social-card.jpg" />
-        <meta property="og:image"  content="https://kotet.jp/cli-guidlines-ja/CLIG-social-card.jpg" />
+        <meta name="twitter:image" content="{{ .Site.BaseURL }}/CLIG-social-card.jpg" />
+        <meta property="og:image"  content="{{ .Site.BaseURL }}/CLIG-social-card.jpg" />
 
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Zen+Antique+Soft&display=swap');
@@ -27,9 +27,10 @@
             @import url('https://fonts.googleapis.com/css2?family=BIZ+UDPMincho:wght@700&display=swap');
         </style>
 
-        {{ $css := resources.Get "css/main.css" | resources.ToCSS }}
-        <link rel="stylesheet" media="screen" href="/css/main.css">
-        <link rel="stylesheet" media="print" href="/css/print.css">
+        {{ $css_main := resources.Get "css/main.css" | resources.ToCSS }}
+        <link rel="stylesheet" media="screen" href="{{ $css_main.Permalink }}">
+        {{ $css_print := resources.Get "css/print.css" | resources.ToCSS }}
+        <link rel="stylesheet" media="print" href="{{ $css_print.Permalink }}">
     </head>
     <body>
         {{- block "main" . }}{{- end }}

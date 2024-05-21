@@ -1,7 +1,7 @@
 staticDir = ["assets"]
+baseURL = "https://kotet.jp/cli-guidelines-ja/"
 
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
       unsafe = true
-
