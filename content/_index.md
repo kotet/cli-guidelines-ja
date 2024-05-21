@@ -26,6 +26,14 @@ Design by [Mark Hurrell](https://mhurrell.co.uk/). Thanks to Andreas Jansson for
 
 このガイドやCLIデザインについて議論したいなら、[Discordに参加](https://discord.gg/EbAW5rUCkE)してください。
 
+## 翻訳について {#translation}
+
+このページは [Command Line Interface Guidelines](https://clig.dev/) の日本語訳です。
+オリジナルの著作権は [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/) であり、この翻訳もライセンスを継承します。
+翻訳の修正や改善にご協力いただける方は、[GitHubリポジトリ](https://github.com/kotet/cli-guidelines-ja)にプルリクエストを送ってください。
+
+<iframe class="github-button" src="https://ghbtns.com/github-btn.html?user=kotet&repo=cli-guidelines-ja&type=star&count=true&size=large" frameborder="0" scrolling="0" width="170" height="30" title="GitHub"></iframe>
+
 ## 序文 {#foreword}
 
 1980年代において、パーソナルコンピュータを使って何かをしたい時は、`C:\>`や`~$`という表示に対して何を入力すればいいのかを知っている必要がありました。
