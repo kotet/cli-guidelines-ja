@@ -27,9 +27,9 @@
             @import url('https://fonts.googleapis.com/css2?family=BIZ+UDPMincho:wght@700&display=swap');
         </style>
 
-        {{ $css_main := resources.Get "css/main.css" | resources.ToCSS }}
+        {{ $css_main := resources.Get "css/main.css" }}
         <link rel="stylesheet" media="screen" href="{{ $css_main.Permalink }}">
-        {{ $css_print := resources.Get "css/print.css" | resources.ToCSS }}
+        {{ $css_print := resources.Get "css/print.css" }}
         <link rel="stylesheet" media="print" href="{{ $css_print.Permalink }}">
     </head>
     <body>
