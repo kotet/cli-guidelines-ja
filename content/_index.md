@@ -120,7 +120,7 @@ Kayの弟子たちの間には、我々が何十年も囚われているテキ�
 プログラムを構成可能にすることはいまだ重要なままです。
 
 幸いにも、UNIX環境の長年続く慣習はそのような目的でデザインされており、今でも我々の助けになります。
-標準入力/出力/エラー、シグナル、終了コードやその他メカニズムによって異なるプログラムをいい感じにガッチャンコできます。
+標準入力/出力/エラー、シグナル、終了コードやその他メカニズムによって異なるプログラムが適切に噛み合うことを可能にします。
 プレーン行ベーステキストはコマンド間を接続しやすくします。
 より最近の発明であるJSONは、必要なときに構造化を支援し、コマンドラインツールとウェブをより簡単に統合できるようにします。
 
@@ -169,7 +169,7 @@ GUIアプリケーションの機能はスクリーンの上にあるため、�
 発見可能なCLIは包括的なヘルプテキストを持ち、多くの例を提供し、次に何をすべきかを提案し、エラーの際には何をすべきかを提案します。
 GUIからは、CLIを学習と使用が簡単で、パワーユーザにも役に立つものにするために多くのアイデアを盗むことができます。
 
-_Citation: The Design of Everyday Things (Don Norman), Macintosh Human Interface Guidelines_
+_引用: The Design of Everyday Things (Don Norman), Macintosh Human Interface Guidelines_
 
 ### 当たり前のように会話する {#conversation-as-the-norm}
 
@@ -384,7 +384,7 @@ $ myapp subcommand -h
 他のツールとの統合等、より複雑なユースケースに対しては、完全なチュートリアルを書く方が適切でしょう。
 
 **ヘルプテキストの最初には最も一般的なフラグやコマンドを表示してください。**
-大量のフラグが合ってもいいですが、本当によく使う物があるならば、それを最初に表示してください。
+大量のフラグがあってもいいですが、本当によく使う物があるならば、それを最初に表示してください。
 たとえば、GitコマンドはGit操作の開始のためのコマンドと、最もよく使われるサブコマンドを最初に表示します。
 
 ```
@@ -535,7 +535,7 @@ DESCRIPTION
 出力ストリーム (`stdout`や`stderr`) は人間に読まれるか、**そうでなければTTYではない**というのは最もシンプルで素直なヒューリスティックです。
 どの言語にもそのようなことを行うためのユーティリティやライブラリがあります (例: [Python](https://stackoverflow.com/questions/858623/how-to-recognize-whether-a-script-is-running-on-a-tty)、 [Node](https://nodejs.org/api/process.html#process_a_note_on_process_i_o)、 [Go](https://github.com/mattn/go-isatty))
 
-_参考文献 on [what a TTY is](https://unix.stackexchange.com/a/4132)._
+_TTYが何かについては[参考文献を読んでください。](https://unix.stackexchange.com/a/4132)_
 
 **ユーザビリティに影響しない範囲で機械可読な出力にしてください。**
 テキストストリームはUNIXのユニバーサルなインターフェースです。
@@ -738,15 +738,15 @@ _参考文献: [Google: Writing Helpful Error Messages](https://developers.googl
 将来に入力の受け取り方を変える際も簡単になります。
 引数を使うと、既存の振る舞いを破壊したり曖昧さを導入したりすることなしに新しい入力を追加することが不可能になることがあります。
 
-_Citation: [12 Factor CLI Apps](https://medium.com/@jdxcode/12-factor-cli-apps-dd3c227a0e46)._
+_引用: [12 Factor CLI Apps](https://medium.com/@jdxcode/12-factor-cli-apps-dd3c227a0e46)._
 
 **全てのフラグに完全なバージョンを用意してください。**
 たとえば、`-h`と`--help`の両方があるべきです。
 フルバージョンがあることで、スクリプトを冗長かつ説明的に書きたいときに便利になり、フラグの意味をいちいち調べに行くことがなくなります。
 
-_Citation: [GNU Coding Standards](https://www.gnu.org/prep/standards/html_node/Command_002dLine-Interfaces.html)._
+_引用: [GNU Coding Standards](https://www.gnu.org/prep/standards/html_node/Command_002dLine-Interfaces.html)._
 
-**1文字フラグは特に一般的なフラグにのみ使い、**特にサブコマンドを使う時はトップレベルのものに使うようにしてください。
+**1文字フラグは特に一般的なフラグにのみ使い、** 特にサブコマンドを使う時はトップレベルのものに使うようにしてください。
 短いフラグの名前空間を「汚染」しないようにすることで、将来追加されるフラグに複雑な文字や大文字を使わなくて済むようになります。
 
 **複数の引数は複数のファイルに対する単純なアクションに対しては優れています。**
@@ -757,7 +757,7 @@ _Citation: [GNU Coding Standards](https://www.gnu.org/prep/standards/html_node/C
 例外は一般的で主要な、覚えておけるほど簡潔なアクションです。
 `cp <source> <destination>`等がこれに当たります。
 
-_Citation: [12 Factor CLI Apps](https://medium.com/@jdxcode/12-factor-cli-apps-dd3c227a0e46)._
+_引用: [12 Factor CLI Apps](https://medium.com/@jdxcode/12-factor-cli-apps-dd3c227a0e46)._
 
 **標準が存在するなら、フラグ名には標準的な名前を使ってください。**
 他の一般的に使われているコマンドが使っているフラグ名があるなら、既存のパターンに従うのがベストです。
@@ -961,7 +961,7 @@ b0efebc74f25: Downloading [===========================================>       ] 
 操作の後のクリーンアップの必要性をなくせる、もしくはクリーンアップを次の実行まで遅らせられるなら、プログラムは即座に失敗または中断して抜けられるようにできます。
 これによりプログラムが堅牢かつ応答性の高いものになります。
 
-_Citation: [Crash-only software: More than meets the eye](https://lwn.net/Articles/191059/)._
+_引用: [Crash-only software: More than meets the eye](https://lwn.net/Articles/191059/)._
 
 **人々はあなたのプログラムに対して間違った使い方をします。**
 それに備えてください。
@@ -1089,7 +1089,7 @@ XDGベースディレクトリ仕様
 もしシステム設定に追記または変更を行わなければならないなら、そのファイル内で変更を示す日付付きのコメントを使用してください。
 
 **設定パラメータを優先順位に従って適用してください。**
-以下は設定パラメータの優先順位を高いものから順に並べました。
+以下は設定パラメータの優先順位を高いものから順に並べたものです。
 
 - フラグ
 - 実行中のシェルの環境変数
@@ -1099,7 +1099,7 @@ XDGベースディレクトリ仕様
 
 ### 環境変数 {#environment-variables}
 
-**環境変数はコマンドが実行されているコンテキストによって異なる振る舞いのためのものです。**
+**環境変数はコマンドが実行されているコンテキストによって異なる振る舞いをするためのものです。**
 環境変数の「環境」とはターミナルセッションのことです。つまり、コマンドが実行されているコンテキストのことです。
 したがって、環境変数はコマンド実行毎、もしくは1つのマシンの異なるターミナルセッション間、もしくは各マシンのプロジェクトの初期化のたびに異なる可能性があります。
 
