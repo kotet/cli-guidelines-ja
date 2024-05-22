@@ -62,13 +62,14 @@
 
 html {
    font-family: 'Zen Antique Soft', serif;
-   font-size: 1vw;
+   /* font-size: 1vw; */
    -webkit-font-smoothing: antialiased;
    text-align: left;
 }
 
 body {
-   font-size: clamp(16px, calc(16px + (20px - 16px) * ((100vw - 600px) / (1600 - 600))), 20px);
+   /* min: 16px, max: 20px, viewport: 600-1600px */
+   font-size: clamp(1rem, 0.85rem + 0.4vw, 1.25rem);
    line-height: 1.4;
 }
 
@@ -242,7 +243,7 @@ main {
    box-sizing: border-box;
    padding: 0.5em 0 0;
    text-align: center;
-   font-size: 15.5vw;
+   font-size: 14vw;
    left: -0.025em;
    line-height: 1;
    letter-spacing: -0.2em;
@@ -255,7 +256,7 @@ main {
 }
 @media (min-width: 750px) {
    #command-line-interface-guidelines > h1 {
-      font-size: 16.5vw;
+      font-size: 14vw;
    }
 }
 @media (min-width: 120vh) {
@@ -265,7 +266,7 @@ main {
 }
 @media (min-width: 120vh) {
    #command-line-interface-guidelines > h1 {
-      font-size: 20vh;
+      font-size: 18vh;
       max-width: 8em;
       margin: 0 auto;
    }
