@@ -1,6 +1,6 @@
 # コマンドライン<wbr>インターフェース<wbr>ガイドライン {#command-line-interface-guidelines}
 
-よりよいコマンドラインプログラムを書くための[オープンソース](https://github.com/cli-guidelines/cli-guidelines)ガイドです。伝統的UNIXの原則を取り入れ、それを現代的にアップデートしています。
+よりよいコマンドラインプログラムを書くための[オープンソース](https://github.com/kotet/cli-guidelines-ja)ガイドです。伝統的UNIXの原則を取り入れ、それを現代的にアップデートしています。
 
 ## 著者一覧 {#authors}
 
