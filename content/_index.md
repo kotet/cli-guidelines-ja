@@ -275,12 +275,12 @@ _参考文献: [The Anti-Mac User Interface (Don Gentner and Jakob Nielsen)](htt
 * Julia: [ArgParse.jl](https://github.com/carlobaldassi/ArgParse.jl), [Comonicon.jl](https://github.com/comonicon/Comonicon.jl)
 * Kotlin: [clikt](https://ajalt.github.io/clikt/)
 * Node: [oclif](https://oclif.io/)
-* Deno: [flags](https://deno.land/std/flags)
+* Deno: [parseArgs](https://jsr.io/@std/cli/doc/parse-args/~/parseArgs)
 * Perl: [Getopt::Long](https://metacpan.org/pod/Getopt::Long)
 * PHP: [console](https://github.com/symfony/console), [CLImate](https://climate.thephpleague.com)
 * Python: [Argparse](https://docs.python.org/3/library/argparse.html), [Click](https://click.palletsprojects.com/), [Typer](https://github.com/tiangolo/typer)
 * Ruby: [TTY](https://ttytoolkit.org/)
-* Rust: [clap](https://clap.rs/)
+* Rust: [clap](https://docs.rs/clap)
 * Swift: [swift-argument-parser](https://github.com/apple/swift-argument-parser)
 
 **成功時は終了コードゼロ、失敗時には非ゼロを返してください。**
@@ -299,9 +299,17 @@ _参考文献: [The Anti-Mac User Interface (Don Gentner and Jakob Nielsen)](htt
 
 **なにもオプションを指定しなかった時、`-h`や`--help`フラグが指定された時にはヘルプテキストを表示してください。**
 
+<<<<<<< HEAD
 **デフォルトでは簡潔なヘルプテキストを出力するようにしてください。**
 可能なら、`myapp`や`myapp subcommand`が実行された時はデフォルトでヘルプテキストを表示するようにしてください。
 プログラムが非常にシンプルで明らかなデフォルトの動作があるとき (例: `ls`) や、プログラムが入力をインタラクティブに受け取る時 (例: `cat`) はその限りではありません。
+=======
+**Display a concise help text by default.**
+When `myapp` or `myapp subcommand` is run with no arguments, display help text.
+
+You can ignore this guideline if your program or subcommand is very simple and requires no arguments (e.g. `ls`, `git pull`),
+or if it's interactive by default (e.g. `npm init`).
+>>>>>>> upstream/main
 
 簡潔なヘルプテキストは以下のもののみを含むべきです。
 
@@ -543,8 +551,13 @@ _TTYが何かについては[参考文献を読んでください。](https://un
 このテキストストリームは通常スクリプトを書くために使われますが、プログラムを使う人間のユーザビリティにも役立ちます。
 たとえば、`grep`に出力を流して期待する出力を得ることがあります。
 
+<<<<<<< HEAD
 > “すべてのプログラムの出力は、未知のものも含めた他のプログラムの入力となることを期待する。”
 — [Doug McIlroy](https://homepage.cs.uri.edu/~thenry/resources/unix_art/ch01s06.html)
+=======
+> “Expect the output of every program to become the input to another, as yet unknown, program.”
+— [Doug McIlroy](http://web.archive.org/web/20220609080931/https://homepage.cs.uri.edu/~thenry/resources/unix_art/ch01s06.html)
+>>>>>>> upstream/main
 
 **人間可読な出力が機械可読な出力を壊す場合、`--plain`で出力を平易な、`grep`や`awk`のようなツールと統合できる表形式のテキストフォーマットにするようにしてください。**
 場合によっては、人間にとって読みやすいのとは異なる方法で出力を行う必要があるかもしれません。
@@ -638,12 +651,21 @@ drwxr-xr-x 2 root root   4.0K Jul 20 14:57 skel
 **プログラムがターミナルで動作していない、もしくはユーザが無効化するよう要請した時は、色を無効化してください。**
 以下のようなもので色を無効化できるべきです。
 
+<<<<<<< HEAD
 - `stdout`や`stderr`がインタラクティブなターミナル (TTY) ではない。
   この2つは個別にチェックするのが最良です。`stdout`を他のプログラムにパイプ接続しているときでも、`stderr`に色がついていると便利です。
 - `NO_COLOR`環境変数が設定されている。
 - `TERM`環境変数の値が`dumb`である。
 - ユーザが`--no-color`オプションを渡した。
 - 特にあなたのプログラムだけ色を無効化したいという場合は`MYAPP_NO_COLOR`環境変数を追加したくなるかもしれません。
+=======
+- `stdout` or `stderr` is not an interactive terminal (a TTY).
+  It’s best to individually check—if you’re piping `stdout` to another program, it’s still useful to get colors on `stderr`.
+- The `NO_COLOR` environment variable is set and it is not empty (regardless of its value).
+- The `TERM` environment variable has the value `dumb`.
+- The user passes the option `--no-color`.
+- You may also want to add a `MYAPP_NO_COLOR` environment variable in case users want to disable color specifically for your program.
+>>>>>>> upstream/main
 
 _参考文献: [no-color.org](https://no-color.org/), [12 Factor CLI Apps](https://medium.com/@jdxcode/12-factor-cli-apps-dd3c227a0e46)_
 
@@ -685,10 +707,17 @@ UwlHnUFXgENO3ifPZd8zoSKMxESxxot4tMgvfXjmRp5G3BGrAnonncE7Aj11pn3SSYgEcrrn2sMyLGpV
 **少なくともデフォルトでは`stderr`をログファイルのように扱わないでください。**
 verboseモードでない時にログレベルのラベル (`ERR`、`WARN`等) や関連性の薄い情報を出力しないでください。
 
+<<<<<<< HEAD
 **大量のテキストを出力する時はページャ (例: `less`) を使ってください。**
 たとえば、`git diff`はデフォルトでこれを行います。
 ページャの使用は問題を起こしやすいので、ユーザの体験を損なわないように実装には気をつけてください。
 `stdin`や`stdout`がインタラクティブなターミナルでないならページャを使うべきではありません。
+=======
+**Use a pager (e.g. `less`) if you are outputting a lot of text.**
+For example, `git diff` does this by default.
+Using a pager can be error-prone, so be careful with your implementation such that you don’t make the experience worse for the user.
+Use a pager only if `stdin` or `stdout` is an interactive terminal.
+>>>>>>> upstream/main
 
 `less`に対する優れたオプション指定は`less -FIRX`です。
 これによってコンテンツがスクリーンに収まる場合は動作せず、検索の際に大文字・小文字を無視し、色と書式を有効化し、`less`が終了した時に画面にコンテンツを残すようになります。
@@ -845,6 +874,7 @@ unknown flag: --foo
 これはユーザを混乱させるかもしれません。コマンドの使用においてそのような混乱が起こる最も一般的な動作は、上キーを押して直近の呼び出しを取り出して、末尾にオプションを追加してまた実行するような場面です。
 可能ならば、引数パーサの制約にぶつかったとしても、どちらの形式も等価であるようにしてください。
 
+<<<<<<< HEAD
 **シークレットをフラグから直接読まないでください。**
 `--password`のような形でコマンドがシークレットを受け取るとき、引数の値は`ps`の出力や場合によりシェルの履歴等から漏洩します。
 さらに、この手のフラグはシークレットに対するセキュアでない環境変数の使用を招きます。
@@ -855,6 +885,20 @@ unknown flag: --foo
 (Bashでは`--password $(< password.txt)`のようにファイルの内容を渡すことが可能です。
 このアプローチは`ps`の出力によってファイルの中身が漏洩する同じようなセキュリティリスクがあります。
 避けるべきです。)
+=======
+**Do not read secrets directly from flags.**
+When a command accepts a secret, e.g. via a `--password` flag,
+the flag value will leak the secret into `ps` output and potentially shell history.
+And, this sort of flag encourages the use of insecure environment variables for secrets.
+(Environment variables are insecure because they can often be read by other users, their values end up in debug logs, etc.)
+
+Consider accepting sensitive data only via files, e.g. with a `--password-file` flag, or via `stdin`.
+A `--password-file` flag allows a secret to be passed in discreetly, in a wide variety of contexts.
+
+(It’s possible to pass a file’s contents into a flag in Bash by using `--password $(< password.txt)`.
+This approach has the same security as mentioned above.
+It’s best avoided.)
+>>>>>>> upstream/main
 
 ### インタラクティブ性 {#interactivity}
 
@@ -1091,11 +1135,19 @@ XDGベースディレクトリ仕様
 **設定パラメータを優先順位に従って適用してください。**
 以下は設定パラメータの優先順位を高いものから順に並べたものです。
 
+<<<<<<< HEAD
 - フラグ
 - 実行中のシェルの環境変数
 - プロジェクトレベルの設定 (例: `.env`)
 - ユーザレベル設定
 - システムレベル設定
+=======
+- Flags
+- The running shell’s environment variables
+- Project-level configuration (e.g. `.env`)
+- User-level configuration
+- System wide configuration
+>>>>>>> upstream/main
 
 ### 環境変数 {#environment-variables}
 
