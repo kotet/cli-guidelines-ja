@@ -275,12 +275,12 @@ _参考文献: [The Anti-Mac User Interface (Don Gentner and Jakob Nielsen)](htt
 * Julia: [ArgParse.jl](https://github.com/carlobaldassi/ArgParse.jl), [Comonicon.jl](https://github.com/comonicon/Comonicon.jl)
 * Kotlin: [clikt](https://ajalt.github.io/clikt/)
 * Node: [oclif](https://oclif.io/)
-* Deno: [flags](https://deno.land/std/flags)
+* Deno: [parseArgs](https://jsr.io/@std/cli/doc/parse-args/~/parseArgs)
 * Perl: [Getopt::Long](https://metacpan.org/pod/Getopt::Long)
 * PHP: [console](https://github.com/symfony/console), [CLImate](https://climate.thephpleague.com)
 * Python: [Argparse](https://docs.python.org/3/library/argparse.html), [Click](https://click.palletsprojects.com/), [Typer](https://github.com/tiangolo/typer)
 * Ruby: [TTY](https://ttytoolkit.org/)
-* Rust: [clap](https://clap.rs/)
+* Rust: [clap](https://docs.rs/clap)
 * Swift: [swift-argument-parser](https://github.com/apple/swift-argument-parser)
 
 **成功時は終了コードゼロ、失敗時には非ゼロを返してください。**
@@ -300,8 +300,10 @@ _参考文献: [The Anti-Mac User Interface (Don Gentner and Jakob Nielsen)](htt
 **なにもオプションを指定しなかった時、`-h`や`--help`フラグが指定された時にはヘルプテキストを表示してください。**
 
 **デフォルトでは簡潔なヘルプテキストを出力するようにしてください。**
-可能なら、`myapp`や`myapp subcommand`が実行された時はデフォルトでヘルプテキストを表示するようにしてください。
-プログラムが非常にシンプルで明らかなデフォルトの動作があるとき (例: `ls`) や、プログラムが入力をインタラクティブに受け取る時 (例: `cat`) はその限りではありません。
+`myapp`や`myapp subcommand`が引数なしで実行された時は、ヘルプテキストを表示してください。
+
+プログラムが非常にシンプルで明らかなデフォルトの動作があるとき (例: `ls`、`git pull`) や、
+デフォルトでインタラクティブに動作するとき (例: `npm init`) はこのガイドラインを無視しても構いません。
 
 簡潔なヘルプテキストは以下のもののみを含むべきです。
 
@@ -544,7 +546,7 @@ _TTYが何かについては[参考文献を読んでください。](https://un
 たとえば、`grep`に出力を流して期待する出力を得ることがあります。
 
 > “すべてのプログラムの出力は、未知のものも含めた他のプログラムの入力となることを期待する。”
-— [Doug McIlroy](https://homepage.cs.uri.edu/~thenry/resources/unix_art/ch01s06.html)
+— [Doug McIlroy](http://web.archive.org/web/20220609080931/https://homepage.cs.uri.edu/~thenry/resources/unix_art/ch01s06.html)
 
 **人間可読な出力が機械可読な出力を壊す場合、`--plain`で出力を平易な、`grep`や`awk`のようなツールと統合できる表形式のテキストフォーマットにするようにしてください。**
 場合によっては、人間にとって読みやすいのとは異なる方法で出力を行う必要があるかもしれません。
@@ -640,7 +642,7 @@ drwxr-xr-x 2 root root   4.0K Jul 20 14:57 skel
 
 - `stdout`や`stderr`がインタラクティブなターミナル (TTY) ではない。
   この2つは個別にチェックするのが最良です。`stdout`を他のプログラムにパイプ接続しているときでも、`stderr`に色がついていると便利です。
-- `NO_COLOR`環境変数が設定されている。
+- `NO_COLOR`環境変数が設定されており、空でない(値は問いません)。
 - `TERM`環境変数の値が`dumb`である。
 - ユーザが`--no-color`オプションを渡した。
 - 特にあなたのプログラムだけ色を無効化したいという場合は`MYAPP_NO_COLOR`環境変数を追加したくなるかもしれません。
@@ -688,7 +690,7 @@ verboseモードでない時にログレベルのラベル (`ERR`、`WARN`等) �
 **大量のテキストを出力する時はページャ (例: `less`) を使ってください。**
 たとえば、`git diff`はデフォルトでこれを行います。
 ページャの使用は問題を起こしやすいので、ユーザの体験を損なわないように実装には気をつけてください。
-`stdin`や`stdout`がインタラクティブなターミナルでないならページャを使うべきではありません。
+`stdin`や`stdout`がインタラクティブなターミナルである場合のみページャを使うようにしてください。
 
 `less`に対する優れたオプション指定は`less -FIRX`です。
 これによってコンテンツがスクリーンに収まる場合は動作せず、検索の際に大文字・小文字を無視し、色と書式を有効化し、`less`が終了した時に画面にコンテンツを残すようになります。
@@ -848,12 +850,13 @@ unknown flag: --foo
 **シークレットをフラグから直接読まないでください。**
 `--password`のような形でコマンドがシークレットを受け取るとき、引数の値は`ps`の出力や場合によりシェルの履歴等から漏洩します。
 さらに、この手のフラグはシークレットに対するセキュアでない環境変数の使用を招きます。
+(環境変数は他のユーザに読まれたり、値がデバッグログに残ったりすることがよくあるため、セキュアではありません。)
 
 `--password-file`のようにセンシティブなデータをファイルからのみ受け取るか、`stdin`から受け取ることを検討してください。
 `--password-file`フラグは、様々なコンテキストにおいてシークレットをこっそりと渡すことを可能にします。
 
 (Bashでは`--password $(< password.txt)`のようにファイルの内容を渡すことが可能です。
-このアプローチは`ps`の出力によってファイルの中身が漏洩する同じようなセキュリティリスクがあります。
+このアプローチには環境変数と同様のセキュリティリスクがあります。
 避けるべきです。)
 
 ### インタラクティブ性 {#interactivity}
